@@ -14,5 +14,4 @@ open http://localhost:3000
 
 ## License
 
-CC0 (public domain)
-domain)
+MIT
