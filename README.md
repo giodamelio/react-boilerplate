@@ -13,7 +13,7 @@ git clone https://github.com/giodamelio/react-boilerplate.git
 cd react-boilerplate
 npm install
 npm start
-open http://localhost:3000
+open http://localhost:3141
 ```
 
 ## License
