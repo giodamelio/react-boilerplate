@@ -3,6 +3,7 @@ import path from 'path';
 import gulp from 'gulp';
 import gutil from 'gulp-util';
 import eslint from 'gulp-eslint';
+import uglify from 'gulp-uglifyjs';
 
 import webpack from 'webpack';
 import express from 'express';
@@ -47,11 +48,6 @@ const webpackConfigProd = {
     new webpack.DefinePlugin({
       'process.env': {
         'NODE_ENV': JSON.stringify('production'),
-      },
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      compressor: {
-        warnings: false,
       },
     }),
   ],
@@ -106,6 +102,15 @@ gulp.task('build:prod', ['clean'], function (callback) {
   });
 });
 
+// Minify with the Googld Closure Compiler
+gulp.task('minify', function () {
+  gulp.src('dist/bundle.js')
+    .pipe(uglify({
+      filename: 'bundle.min.js',
+    }))
+    .pipe(gulp.dest('dist'));
+});
+
 // Clean up
 gulp.task('clean', function (callback) {
   rimraf('dist/', callback);
@@ -145,3 +150,4 @@ gulp.task('server', function () {
 });
 
 gulp.task('default', ['server']);
+gulp.task('dist', ['build:prod', 'minify']);
